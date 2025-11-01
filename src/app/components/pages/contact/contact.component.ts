@@ -30,7 +30,8 @@ contactForm = new FormGroup({
   isSubmitting = false;
   isSubmitted = false;
   errorMessage = '';
-    showMessage = false;
+  showMessage = false;
+  showSimpleMessage = false;
 
   constructor() { }
 

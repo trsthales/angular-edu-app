@@ -14,23 +14,62 @@
       
       <!-- Formulário de Contato -->
       <div class="form-section">
-        
         <!-- Mensagem de Sucesso -->
         <div *ngIf="isSubmitted" class="success-message">
           <div class="success-icon">✅</div>
           <h3>Mensagem enviada com sucesso!</h3>
           <p>Obrigado pelo seu contato. Responderemos em breve.</p>
-          <button 
-            class="btn btn-primary" 
-            (click)="resetSubmission()">
-            Enviar outra mensagem
+          <button class="btn btn-primary" (click)="resetSubmission()">Enviar outra mensagem</button>
+        </div>
+        <!-- Formulário reativo -->
+        <form *ngIf="!isSubmitted" [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+          <!-- Mensagem de erro geral -->
+          <div *ngIf="errorMessage" class="error-message">
+            <span class="error-icon">⚠️</span>
+            {{ errorMessage }}
+          </div>
+          <!-- Campo Nome -->
+          <div class="form-group">
+            <label for="name" class="form-label">Nome completo *</label>
+            <input id="name" type="text" class="input form-input" formControlName="name" placeholder="Seu nome completo">
+            <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="field-error">
+              Nome é obrigatório.
+            </div>
+          </div>
+          <!-- Campo Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email *</label>
+            <input id="email" type="email" class="input form-input" formControlName="email" placeholder="seu.email@exemplo.com">
+            <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="field-error">
+              <span *ngIf="contactForm.get('email')?.errors?.['required']">Email é obrigatório.</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['email']">Email inválido.</span>
+            </div>
+          </div>
+          <!-- Campo Assunto -->
+          <div class="form-group">
+            <label for="subject" class="form-label">Assunto</label>
+            <select id="subject" class="input form-input" formControlName="subject">
+              <option value="">Selecione um assunto</option>
+              <option *ngFor="let subject of subjects" [value]="subject.value">{{ subject.label }}</option>
+            </select>
+          </div>
+          <!-- Campo Mensagem -->
+          <div class="form-group">
+            <label for="message" class="form-label">Mensagem *</label>
+            <textarea id="message" rows="5" class="input form-textarea" formControlName="message" placeholder="Digite sua mensagem aqui..."></textarea>
+            <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="field-error">
+              Mensagem é obrigatória.
+            </div>
+          </div>
+          <!-- Botão Enviar -->
+          <button type="submit" class="btn btn-primary submit-btn" [disabled]="isSubmitting || contactForm.invalid">
+            <span *ngIf="!isSubmitting">Enviar Mensagem</span>
+            <span *ngIf="isSubmitting" class="submitting">
+              <div class="spinner-small"></div>
+              Enviando...
+            </span>
           </button>
-        </div>
-
-        <!-- Formulário removido para simplificação -->
-        <div class="form-section">
-          <p>Formulário de contato temporariamente desativado para facilitar o início do projeto.</p>
-        </div>
+        </form>
       </div>
 
       <!-- Informações de Contato -->
@@ -43,7 +82,7 @@
               <div class="info-icon">📧</div>
               <div class="info-content">
                 <strong>Email</strong>
-                <p>contato@angularedu.com</p>
+                <p>thales87@gmail.com</p>
               </div>
             </div>
 
@@ -63,11 +102,13 @@
               </div>
             </div>
           </div>
-                <!-- Funcionalidade simples: botão e mensagem -->
-                <div class="form-section">
-                  <button class="btn btn-primary" (click)="showMessage = true">Mostrar mensagem</button>
-                  <p *ngIf="showMessage" class="simple-message">Obrigado por visitar nossa página de contato!</p>
-                </div>
+          <!-- Botão e mensagem simples SEM depender de outros *ngIf -->
+        <div class="simple-message-section" style="margin-bottom: 2rem;">
+          <button class="btn btn-primary" (click)="showSimpleMessage = true">Mostrar mensagem</button>
+          <p *ngIf="showSimpleMessage" class="simple-message">Obrigado por visitar nossa página de contato!</p>
+        </div>
+        <!-- Restante do conteúdo -->
+                <!-- fim da funcionalidade simples -->
             <h4>💡 Dica Educativa</h4>
             <p>
               Este formulário demonstra:

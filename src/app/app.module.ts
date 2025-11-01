@@ -15,6 +15,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { AboutModule } from './components/pages/about/about.module';
 import { ContactComponent } from './components/pages/contact/contact.component';
+import { ContactModule } from './components/pages/contact/contact.module';
 
 /**
  * Componentes compartilhados
@@ -133,8 +134,10 @@ const routes: Routes = [
     // ReactiveFormsModule: módulo para formulários reativos
     ReactiveFormsModule,
 
-    // AboutModule: módulo da página Sobre
-    AboutModule,
+  // AboutModule: módulo da página Sobre
+  AboutModule,
+  // ContactModule: módulo da página Contato
+  ContactModule,
 
     // RouterModule com as rotas principais
     RouterModule.forRoot(routes, {

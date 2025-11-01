@@ -1,3 +1,68 @@
+.contact-form {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 32px 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-input,
+.form-textarea,
+.contact-form select {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.contact-form select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.field-error {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.submit-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.submit-btn:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.simple-message-section {
+  margin: 24px 0 0 0;
+  text-align: center;
+}
+.simple-message {
+  color: #1976d2;
+  font-weight: 500;
+  margin-top: 12px;
+}
 /* Estilos da Página Contact */
 
 .contact-container {
