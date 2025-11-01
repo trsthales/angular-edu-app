@@ -1,0 +1,232 @@
+<!-- Detalhes do Usuário -->
+<section class="user-detail-container">
+  <div class="container">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-section">
+      <app-loading 
+        size="48" 
+        message="Carregando dados do usuário...">
+      </app-loading>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="error-section">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h3>Erro ao carregar usuário</h3>
+        <p>{{ errorMessage }}</p>
+        <div class="error-actions">
+          <button class="btn btn-primary" (click)="reloadUser()">
+            Tentar Novamente
+          </button>
+          <button class="btn" (click)="goBack()">
+            Voltar à Lista
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Details -->
+    <div *ngIf="!isLoading && !errorMessage && user" class="user-detail">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <button class="breadcrumb-link" (click)="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Voltar aos Usuários
+        </button>
+      </nav>
+
+      <!-- User Profile -->
+      <div class="user-profile">
+        
+        <!-- Profile Header -->
+        <div class="profile-header">
+          <div class="profile-avatar">
+            {{ user.name.charAt(0).toUpperCase() }}
+          </div>
+          
+          <div class="profile-info">
+            <h1 class="profile-name">{{ user.name }}</h1>
+            <p class="profile-email">{{ user.email }}</p>
+            
+            <div class="profile-meta">
+              <span 
+                class="role-badge"
+                [class]="getUserRoleClass(user.role)">
+                {{ getRoleLabel(user.role) }}
+              </span>
+              
+              <div class="status-info" [class]="isOnline(user) ? 'online' : 'offline'">
+                <span class="status-indicator"></span>
+                <span class="status-text">
+                  {{ isOnline(user) ? 'Online' : 'Offline' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+          
+          <!-- User Information -->
+          <div class="info-section">
+            <h3 class="section-title">👤 Informações Pessoais</h3>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">Nome Completo</div>
+                <div class="info-value">{{ user.name }}</div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">
+                  <a href="mailto:{{ user.email }}" class="email-link">
+                    {{ user.email }}
+                  </a>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">ID do Usuário</div>
+                <div class="info-value">
+                  <code class="user-id-code">{{ user.id }}</code>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <div class="info-label">Role/Permissão</div>
+                <div class="info-value">
+                  <span 
+                    class="role-badge"
+                    [class]="getUserRoleClass(user.role)">
+                    {{ getRoleLabel(user.role) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Information -->
+          <div class="activity-section">
+            <h3 class="section-title">📊 Atividade</h3>
+            
+            <div class="activity-grid">
+              <div class="activity-item">
+                <div class="activity-icon">📅</div>
+                <div class="activity-content">
+                  <div class="activity-label">Data de Cadastro</div>
+                  <div class="activity-value">{{ formatDate(user.createdAt) }}</div>
+                </div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon">🕒</div>
+                <div class="activity-content">
+                  <div class="activity-label">Último Login</div>
+                  <div class="activity-value">
+                    <div *ngIf="user.lastLogin; else neverLogged">
+                      {{ formatDate(user.lastLogin) }}
+                      <small class="login-time">({{ getLastLoginTime(user) }})</small>
+                    </div>
+                    <ng-template #neverLogged>
+                      <span class="never-logged">Nunca acessou o sistema</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon">⚡</div>
+                <div class="activity-content">
+                  <div class="activity-label">Status Atual</div>
+                  <div class="activity-value">
+                    <span class="status-badge" [class]="isOnline(user) ? 'online' : 'offline'">
+                      {{ isOnline(user) ? 'Online' : 'Offline' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions Section -->
+          <div class="actions-section">
+            <h3 class="section-title">🛠️ Ações</h3>
+            
+            <div class="actions-grid">
+              <button class="action-button edit-profile">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Editar Perfil
+              </button>
+              
+              <button class="action-button reset-password">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <circle cx="12" cy="16" r="1"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                Redefinir Senha
+              </button>
+              
+              <button 
+                class="action-button view-permissions"
+                *ngIf="user.role === 'admin'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                Ver Permissões
+              </button>
+              
+              <button 
+                class="action-button secondary"
+                (click)="goBack()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar à Lista
+              </button>
+            </div>
+          </div>
+
+          <!-- Role Information -->
+          <div class="role-info-section">
+            <h3 class="section-title">🔐 Informações de Permissão</h3>
+            
+            <div class="role-info">
+              <p class="role-description">
+                <strong>Role atual:</strong> {{ getRoleLabel(user.role) }}
+              </p>
+              
+              <div class="permissions-list">
+                <h4>Permissões:</h4>
+                <ul>
+                  <li *ngIf="user.role === 'admin'">
+                    ✅ Acesso completo ao sistema
+                  </li>
+                  <li *ngIf="user.role === 'user'">
+                    ✅ Visualizar e gerenciar conteúdo pessoal
+                  </li>
+                  <li *ngIf="user.role === 'guest'">
+                    ✅ Acesso apenas de leitura
+                  </li>
+                  <li>
+                    ✅ Editar informações do perfil
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,205 @@
+/* Estilos da Página About */
+
+.about-container {
+  padding: var(--space-lg) 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--space-xxl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-title {
+  color: var(--neutral-900);
+  margin-bottom: var(--space-sm);
+}
+
+.page-subtitle {
+  color: var(--neutral-600);
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Explicação do Projeto */
+.project-explanation {
+  margin-bottom: var(--space-xxl);
+}
+
+.explanation-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.explanation-text {
+  color: var(--neutral-700);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  font-size: 16px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.tech-badge {
+  background-color: var(--primary-100);
+  color: var(--primary-700);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Conceitos Demonstrados */
+.concepts-section {
+  margin-bottom: var(--space-xxl);
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.concept-card {
+  height: 100%;
+}
+
+.concept-title {
+  color: var(--neutral-900);
+  margin-bottom: var(--space-sm);
+}
+
+.concept-description {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+.concept-example {
+  background-color: var(--neutral-100);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--primary-500);
+}
+
+.example-label {
+  color: var(--neutral-500);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.example-code {
+  display: block;
+  color: var(--neutral-700);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  margin-top: var(--space-xs);
+}
+
+/* Estrutura da Aplicação */
+.structure-section {
+  margin-bottom: var(--space-xxl);
+}
+
+.structure-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.structure-tree {
+  background-color: var(--neutral-900);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-lg);
+  overflow-x: auto;
+}
+
+.tree-code {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+  white-space: pre;
+}
+
+.structure-description h3 {
+  color: var(--neutral-900);
+  margin-bottom: var(--space-md);
+}
+
+.structure-description ul {
+  color: var(--neutral-600);
+  padding-left: var(--space-lg);
+}
+
+.structure-description li {
+  margin-bottom: var(--space-sm);
+  line-height: 1.5;
+}
+
+.structure-description strong {
+  color: var(--neutral-700);
+}
+
+/* Horário Atual */
+.current-time {
+  margin-bottom: var(--space-xl);
+}
+
+.time-card {
+  background: linear-gradient(135deg, var(--success-500), #16a34a);
+  color: white;
+  border-radius: var(--border-radius-md);
+  padding: var(--space-xl);
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.time-card h3 {
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.time-display {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.time-note {
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .structure-content {
+    grid-template-columns: 1fr;
+  }
+
+  .structure-tree {
+    order: 2;
+  }
+
+  .structure-description {
+    order: 1;
+  }
+}

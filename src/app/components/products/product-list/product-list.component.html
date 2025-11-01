@@ -1,0 +1,146 @@
+<!-- Lista de Produtos -->
+<section class="product-list-container">
+  <div class="container">
+    
+    <!-- Header da Página -->
+    <header class="page-header">
+      <h1 class="page-title">Catálogo de Produtos</h1>
+      <p class="page-subtitle">
+        Explore nossa seleção de produtos educacionais e ferramentas para desenvolvedores
+      </p>
+    </header>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+      <div class="filters-card card">
+        <h3 class="filters-title">🔍 Filtros</h3>
+        
+        <div class="filters-content">
+          <!-- Campo de Pesquisa -->
+          <div class="filter-group">
+            <label for="search" class="filter-label">Pesquisar</label>
+            <input 
+              id="search"
+              type="text"
+              class="input filter-input"
+              [(ngModel)]="searchTerm"
+              placeholder="Nome ou descrição do produto">
+          </div>
+
+          <!-- Filtro por Categoria -->
+          <div class="filter-group">
+            <label for="category" class="filter-label">Categoria</label>
+            <select 
+              id="category"
+              class="input filter-select"
+              [(ngModel)]="selectedCategory">
+              <option value="all">Todas as categorias</option>
+              <option 
+                *ngFor="let category of categories.slice(1)" 
+                [value]="category">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-section">
+      <app-loading 
+        size="48" 
+        message="Carregando produtos...">
+      </app-loading>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="error-section">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h3>Erro ao carregar produtos</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-primary" (click)="reloadProducts()">
+          Tentar Novamente
+        </button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div *ngIf="!isLoading && !errorMessage" class="products-section">
+      
+      <!-- Results Summary -->
+      <div class="results-summary">
+        <p class="results-text">
+          Mostrando <strong>{{ filteredProducts.length }}</strong> 
+          produto(s) de <strong>{{ products.length }}</strong> total(is)
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredProducts.length === 0" class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <h3>Nenhum produto encontrado</h3>
+        <p>Tente ajustar os filtros ou termos de pesquisa.</p>
+        <button 
+          class="btn btn-primary" 
+          (click)="searchTerm = ''; selectedCategory = 'all'">
+          Limpar Filtros
+        </button>
+      </div>
+
+      <!-- Products Grid -->
+      <div *ngIf="filteredProducts.length > 0" class="products-grid">
+        <div 
+          *ngFor="let product of filteredProducts; trackBy: trackByProductId" 
+          class="product-card card">
+          
+          <!-- Product Header -->
+          <div class="product-header">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <span 
+              class="product-category"
+              [class]="'category-' + product.category.toLowerCase()">
+              {{ product.category }}
+            </span>
+          </div>
+
+          <!-- Product Description -->
+          <p class="product-description">{{ product.description }}</p>
+
+          <!-- Product Details -->
+          <div class="product-details">
+            <div class="product-price">
+              {{ formatPrice(product.price) }}
+            </div>
+            
+            <div class="product-stock" [class]="getStockStatusClass(product)">
+              <span class="stock-icon">
+                {{ product.inStock ? '✅' : '❌' }}
+              </span>
+              <span class="stock-text">
+                {{ product.inStock ? 'Em estoque' : 'Indisponível' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Product Actions -->
+          <div class="product-actions">
+            <button 
+              class="btn btn-primary action-btn"
+              [disabled]="!product.inStock"
+              [title]="product.inStock ? 'Ver detalhes' : 'Produto indisponível'">
+              
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              
+              Ver Detalhes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

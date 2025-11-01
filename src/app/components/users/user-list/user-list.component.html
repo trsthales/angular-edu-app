@@ -1,0 +1,217 @@
+<!-- Lista de Usuários -->
+<section class="user-list-container">
+  <div class="container">
+    
+    <!-- Header da Página -->
+    <header class="page-header">
+      <h1 class="page-title">Gestão de Usuários</h1>
+      <p class="page-subtitle">
+        Gerencie usuários, roles e permissões do sistema
+      </p>
+    </header>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+      <div class="filters-card card">
+        <h3 class="filters-title">🔍 Filtros e Pesquisa</h3>
+        
+        <div class="filters-content">
+          <!-- Campo de Pesquisa -->
+          <div class="filter-group">
+            <label for="search" class="filter-label">Pesquisar usuários</label>
+            <input 
+              id="search"
+              type="text"
+              class="input filter-input"
+              [(ngModel)]="searchTerm"
+              placeholder="Nome ou email do usuário">
+          </div>
+
+          <!-- Filtro por Role -->
+          <div class="filter-group">
+            <label for="role" class="filter-label">Filtrar por role</label>
+            <select 
+              id="role"
+              class="input filter-select"
+              [(ngModel)]="selectedRole">
+              <option 
+                *ngFor="let role of roles" 
+                [value]="role.value">
+                {{ role.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-section">
+      <app-loading 
+        size="48" 
+        message="Carregando usuários...">
+      </app-loading>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="error-section">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h3>Erro ao carregar usuários</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-primary" (click)="reloadUsers()">
+          Tentar Novamente
+        </button>
+      </div>
+    </div>
+
+    <!-- Users Content -->
+    <div *ngIf="!isLoading && !errorMessage" class="users-section">
+      
+      <!-- Results Summary -->
+      <div class="results-summary">
+        <p class="results-text">
+          Mostrando <strong>{{ filteredUsers.length }}</strong> 
+          usuário(s) de <strong>{{ users.length }}</strong> total(is)
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredUsers.length === 0" class="empty-state">
+        <div class="empty-icon">👥</div>
+        <h3>Nenhum usuário encontrado</h3>
+        <p>Tente ajustar os filtros ou termos de pesquisa.</p>
+        <button 
+          class="btn btn-primary" 
+          (click)="searchTerm = ''; selectedRole = 'all'">
+          Limpar Filtros
+        </button>
+      </div>
+
+      <!-- Users Table -->
+      <div *ngIf="filteredUsers.length > 0" class="users-table-container">
+        <div class="users-table card">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Cadastro</th>
+                <th>Último Login</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr 
+                *ngFor="let user of filteredUsers; trackBy: trackByUserId" 
+                class="user-row">
+                
+                <!-- Nome do Usuário -->
+                <td class="user-name-cell">
+                  <div class="user-info">
+                    <div class="user-avatar">
+                      {{ user.name.charAt(0).toUpperCase() }}
+                    </div>
+                    <div class="user-details">
+                      <div class="user-name">{{ user.name }}</div>
+                      <div class="user-id">ID: {{ user.id }}</div>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- Email -->
+                <td class="user-email">
+                  <a href="mailto:{{ user.email }}" class="email-link">
+                    {{ user.email }}
+                  </a>
+                </td>
+
+                <!-- Role -->
+                <td class="user-role">
+                  <span 
+                    class="role-badge"
+                    [class]="getUserRoleClass(user.role)">
+                    {{ getRoleLabel(user.role) }}
+                  </span>
+                </td>
+
+                <!-- Status -->
+                <td class="user-status">
+                  <div class="status-info">
+                    <span 
+                      class="status-indicator"
+                      [class]="isOnline(user) ? 'online' : 'offline'">
+                    </span>
+                    <span class="status-text">
+                      {{ isOnline(user) ? 'Online' : 'Offline' }}
+                    </span>
+                  </div>
+                </td>
+
+                <!-- Data de Cadastro -->
+                <td class="user-created">
+                  <div class="date-info">
+                    {{ formatDate(user.createdAt) }}
+                  </div>
+                </td>
+
+                <!-- Último Login -->
+                <td class="user-last-login">
+                  <div class="date-info">
+                    <div *ngIf="user.lastLogin; else neverLogged">
+                      {{ formatDate(user.lastLogin) }}
+                    </div>
+                    <ng-template #neverLogged>
+                      <span class="never-logged">Nunca</span>
+                    </ng-template>
+                  </div>
+                </td>
+
+                <!-- Ações -->
+                <td class="user-actions">
+                  <div class="action-buttons">
+                    <button 
+                      class="action-btn view-btn"
+                      title="Ver detalhes"
+                      [routerLink]="['/users', user.id]">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </button>
+                    
+                    <button 
+                      class="action-btn edit-btn"
+                      title="Editar usuário">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Educational Note -->
+      <div class="educational-note">
+        <h4>💡 Dica Educativa</h4>
+        <p>
+          Este componente demonstra:
+        </p>
+        <ul>
+          <li><strong>UserService:</strong> Injeção de dependência de serviços</li>
+          <li><strong>Templates responsivos:</strong> Layout adaptável com tabelas</li>
+          <li><strong>TrackBy functions:</strong> Otimização de performance</li>
+          <li><strong>Conditional rendering:</strong> Estados empty, loading, error</li>
+          <li><strong>Role-based UI:</strong> Diferentes visualizações baseadas em roles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

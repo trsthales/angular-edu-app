@@ -1,0 +1,171 @@
+<!-- Detalhes do Produto -->
+<section class="product-detail-container">
+  <div class="container">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-section">
+      <app-loading 
+        size="48" 
+        message="Carregando detalhes do produto...">
+      </app-loading>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="error-section">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h3>Erro ao carregar produto</h3>
+        <p>{{ errorMessage }}</p>
+        <div class="error-actions">
+          <button class="btn btn-primary" (click)="reloadProduct()">
+            Tentar Novamente
+          </button>
+          <button class="btn" (click)="goBack()">
+            Voltar à Lista
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div *ngIf="!isLoading && !errorMessage && product" class="product-detail">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <button class="breadcrumb-link" (click)="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Voltar aos Produtos
+        </button>
+      </nav>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        
+        <!-- Product Header -->
+        <div class="product-header">
+          <div class="product-meta">
+            <span 
+              class="product-category"
+              [class]="'category-' + product.category.toLowerCase()">
+              {{ product.category }}
+            </span>
+            <span class="product-id">ID: {{ product.id }}</span>
+          </div>
+          
+          <h1 class="product-title">{{ product.name }}</h1>
+          
+          <div class="product-status" [class]="product.inStock ? 'in-stock' : 'out-of-stock'">
+            <span class="status-icon">
+              {{ product.inStock ? '✅' : '❌' }}
+            </span>
+            <span class="status-text">
+              {{ product.inStock ? 'Disponível' : 'Indisponível' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Product Content -->
+        <div class="product-content">
+          
+          <!-- Product Description -->
+          <div class="product-description-section">
+            <h3 class="section-title">📝 Descrição</h3>
+            <div class="description-content">
+              <p>{{ product.description }}</p>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="product-details-section">
+            <h3 class="section-title">📋 Detalhes do Produto</h3>
+            <div class="details-grid">
+              
+              <div class="detail-item">
+                <div class="detail-label">Preço</div>
+                <div class="detail-value price-value">
+                  {{ formatPrice(product.price) }}
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">Categoria</div>
+                <div class="detail-value">
+                  <span 
+                    class="detail-category"
+                    [class]="'category-' + product.category.toLowerCase()">
+                    {{ product.category }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">Status</div>
+                <div class="detail-value">
+                  <span class="status-badge" [class]="product.inStock ? 'in-stock' : 'out-of-stock'">
+                    {{ product.inStock ? 'Em estoque' : 'Indisponível' }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">ID do Produto</div>
+                <div class="detail-value">
+                  <code class="product-id-code">{{ product.id }}</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Actions -->
+          <div class="product-actions-section">
+            <h3 class="section-title">🛒 Ações</h3>
+            <div class="actions-grid">
+              
+              <button 
+                class="action-button primary"
+                [disabled]="!product.inStock"
+                [title]="product.inStock ? 'Adicionar ao carrinho' : 'Produto indisponível'">
+                
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"/>
+                  <circle cx="20" cy="21" r="1"/>
+                  <path d="m1 1 4 4 14 4-4 14H5z"/>
+                </svg>
+                
+                Adicionar ao Carrinho
+              </button>
+
+              <button 
+                class="action-button secondary"
+                (click)="goBack()">
+                
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                
+                Voltar à Lista
+              </button>
+            </div>
+          </div>
+
+          <!-- Educational Note -->
+          <div class="educational-note">
+            <h4>💡 Dica Educativa</h4>
+            <p>
+              Este componente demonstra:
+            </p>
+            <ul>
+              <li><strong>Parâmetros de rota:</strong> O ID do produto vem da URL</li>
+              <li><strong>ActivatedRoute:</strong> Para acessar dados da rota atual</li>
+              <li><strong>Router:</strong> Para navegação programática</li>
+              <li><strong>Error handling:</strong> Tratamento de estados de erro</li>
+              <li><strong>Loading states:</strong> Feedback visual durante carregamento</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

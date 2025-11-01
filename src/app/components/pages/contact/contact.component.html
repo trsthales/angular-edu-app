@@ -1,0 +1,85 @@
+<!-- Página Contato -->
+<section class="contact-container">
+  <div class="container">
+    
+    <!-- Header da Página -->
+    <header class="page-header">
+      <h1 class="page-title">Entre em Contato</h1>
+      <p class="page-subtitle">
+        Tem alguma dúvida ou sugestão? Envie uma mensagem!
+      </p>
+    </header>
+
+    <div class="contact-content">
+      
+      <!-- Formulário de Contato -->
+      <div class="form-section">
+        
+        <!-- Mensagem de Sucesso -->
+        <div *ngIf="isSubmitted" class="success-message">
+          <div class="success-icon">✅</div>
+          <h3>Mensagem enviada com sucesso!</h3>
+          <p>Obrigado pelo seu contato. Responderemos em breve.</p>
+          <button 
+            class="btn btn-primary" 
+            (click)="resetSubmission()">
+            Enviar outra mensagem
+          </button>
+        </div>
+
+        <!-- Formulário removido para simplificação -->
+        <div class="form-section">
+          <p>Formulário de contato temporariamente desativado para facilitar o início do projeto.</p>
+        </div>
+      </div>
+
+      <!-- Informações de Contato -->
+      <div class="info-section">
+        <div class="info-card">
+          <h3>Informações de Contato</h3>
+          
+          <div class="contact-info">
+            <div class="info-item">
+              <div class="info-icon">📧</div>
+              <div class="info-content">
+                <strong>Email</strong>
+                <p>contato@angularedu.com</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">⏰</div>
+              <div class="info-content">
+                <strong>Horário de Atendimento</strong>
+                <p>Segunda a Sexta: 9h às 18h</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">🌍</div>
+              <div class="info-content">
+                <strong>Localização</strong>
+                <p>Brasil - Zona Horária BRT</p>
+              </div>
+            </div>
+          </div>
+                <!-- Funcionalidade simples: botão e mensagem -->
+                <div class="form-section">
+                  <button class="btn btn-primary" (click)="showMessage = true">Mostrar mensagem</button>
+                  <p *ngIf="showMessage" class="simple-message">Obrigado por visitar nossa página de contato!</p>
+                </div>
+            <h4>💡 Dica Educativa</h4>
+            <p>
+              Este formulário demonstra:
+            </p>
+            <ul>
+              <li>Template-driven forms</li>
+              <li>Validação de formulários</li>
+              <li>Estados de loading</li>
+              <li>Manipulação de eventos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

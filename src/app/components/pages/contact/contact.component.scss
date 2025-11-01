@@ -1,0 +1,249 @@
+/* Estilos da Página Contact */
+
+.contact-container {
+  padding: var(--space-lg) 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.page-title {
+  color: var(--neutral-900);
+  margin-bottom: var(--space-sm);
+}
+
+.page-subtitle {
+  color: var(--neutral-600);
+  font-size: 18px;
+  margin: 0;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Seção do Formulário */
+.form-section {
+  background-color: var(--bg-surface);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--neutral-700);
+  font-size: 14px;
+}
+
+.form-input,
+.form-textarea {
+  font-family: inherit;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-sm);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-btn {
+  align-self: flex-start;
+  min-width: 200px;
+  justify-content: center;
+}
+
+.submitting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Mensagens de Status */
+.success-message {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.success-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-md);
+}
+
+.success-message h3 {
+  color: var(--success-500);
+  margin-bottom: var(--space-sm);
+}
+
+.success-message p {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-lg);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: #fef2f2;
+  color: var(--error-500);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--error-500);
+  font-size: 14px;
+}
+
+.error-icon {
+  font-size: 16px;
+}
+
+/* Seção de Informações */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.info-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  height: fit-content;
+}
+
+.info-card h3 {
+  color: var(--neutral-900);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.info-icon {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-content strong {
+  color: var(--neutral-700);
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: 14px;
+}
+
+.info-content p {
+  color: var(--neutral-600);
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Dica Educativa */
+.educational-tip {
+  background-color: var(--primary-100);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-md);
+  border-left: 3px solid var(--primary-500);
+}
+
+.educational-tip h4 {
+  color: var(--primary-700);
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 14px;
+}
+
+.educational-tip p {
+  color: var(--neutral-700);
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 14px;
+}
+
+.educational-tip ul {
+  color: var(--neutral-600);
+  margin: 0;
+  padding-left: var(--space-md);
+  font-size: 13px;
+}
+
+.educational-tip li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .form-section,
+  .info-card {
+    padding: var(--space-lg);
+  }
+
+  .submit-btn {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-content {
+    margin: 0;
+  }
+
+  .form-section,
+  .info-card {
+    padding: var(--space-md);
+  }
+}

@@ -1,0 +1,72 @@
+<!-- Página Inicial -->
+<section class="home-container">
+  <div class="container">
+    
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Angular 16 Educacional</h1>
+        <p class="hero-subtitle">
+          Aprenda os fundamentos do Angular através de uma aplicação prática.
+          Explore módulos, componentes, rotas e muito mais!
+        </p>
+        <button class="btn btn-primary cta-button" (click)="onGetStarted()">
+          Começar Exploração
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+      <div class="hero-visual">
+        <div class="angular-logo">
+          <div class="logo-shape">A</div>
+          <span class="logo-text">Angular</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2 class="section-title">O que você vai aprender</h2>
+      <div class="features-grid">
+        <div 
+          *ngFor="let feature of features" 
+          class="feature-card card">
+          <div class="feature-icon">{{ feature.icon }}</div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <h2 class="section-title">Nossa Aplicação em Números</h2>
+      <div class="stats-grid">
+        <div 
+          *ngFor="let stat of stats" 
+          class="stat-card">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Educational Note -->
+    <section class="education-note">
+      <div class="note-card">
+        <h3 class="note-title">💡 Dica Educacional</h3>
+        <p class="note-text">
+          Esta aplicação foi criada especificamente para demonstrar os conceitos fundamentais do Angular 16.
+          Explore o código-fonte para ver como cada conceito é implementado na prática!
+        </p>
+        <ul class="note-list">
+          <li>Abra as ferramentas de desenvolvedor (F12)</li>
+          <li>Navegue entre as páginas para ver diferentes componentes</li>
+          <li>Observe como os módulos são carregados dinamicamente</li>
+          <li>Experimente os guards de rota</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</section>

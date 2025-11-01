@@ -1,0 +1,27 @@
+<!-- Componente Raiz da Aplicação Angular -->
+<div class="app-container">
+  
+  <!-- Header compartilhado - aparece em todas as páginas -->
+  <app-header></app-header>
+
+  <!-- Conteúdo principal das páginas -->
+  <!-- O router-outlet é onde o Angular renderiza os componentes das rotas ativas -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer simples -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-text">
+          © {{ currentYear }} Angular Edu App - 
+          Demonstrando módulos, componentes e rotas
+        </p>
+        <p class="footer-subtitle">
+          Desenvolvido com Angular {{ angularVersion }}
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
